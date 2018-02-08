@@ -5,6 +5,9 @@ using UnityEngine;
 public class playerController : MonoBehaviour {
 
     public float speed;
+    public float jumpForce;
+
+    public bool isGrounded = false;
 
     private Rigidbody rb;
 
@@ -21,5 +24,20 @@ public class playerController : MonoBehaviour {
         Vector3 movement = new Vector3 (MoveHorizontal, 0.0f, MoveVertical);
 
         rb.AddForce(movement * speed);
-	}
+
+        if( Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+
+            rb.AddForce(Vector3.up * jumpForce);
+        }
+        
+    }
+
+    void OnCollisionEnter(Collision collide)
+    {
+        Transform floor = collide.gameObject.transform;
+
+        //Target - Your Position
+        floor.position.y - transform.position.y;
+    }
 }
