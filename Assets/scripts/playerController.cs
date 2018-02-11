@@ -29,8 +29,8 @@ public class playerController : MonoBehaviour {
         {
 
             rb.AddForce(Vector3.up * jumpForce);
+            isGrounded = false;
         }
-        
     }
 
     void OnCollisionEnter(Collision collide)
@@ -38,6 +38,8 @@ public class playerController : MonoBehaviour {
         Transform floor = collide.gameObject.transform;
 
         //Target - Your Position
-        floor.position.y - transform.position.y;
+        if(floor.position.y - transform.position.y < 0.5) {
+            isGrounded = true;
+        }
     }
 }
