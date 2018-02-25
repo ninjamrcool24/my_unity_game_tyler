@@ -11,10 +11,13 @@ public class playerController : MonoBehaviour {
     public bool isGrounded = false;
 
     private Rigidbody rb;
+	public Vector3 checkpoint;
 
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
+		checkpoint = transform.position;
+		Debug.Log (checkpoint);
 	}
 	
 	// Update is called once per frame
@@ -33,7 +36,10 @@ public class playerController : MonoBehaviour {
             isGrounded = false;
         }
 		if (transform.position.y < -10) {
-			SceneManager.LoadScene("my_unity_project_tyler");
+			Debug.Log (checkpoint);
+			transform.position = checkpoint;
+
+			//SceneManager.LoadScene("my_unity_project_tyler");
 		}
     }
 

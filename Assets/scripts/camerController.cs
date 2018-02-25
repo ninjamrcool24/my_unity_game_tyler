@@ -7,16 +7,28 @@ public class camerController : MonoBehaviour {
     public GameObject player;
     
     private Vector3 offset;
+	private float offsetDistance;
+	private float yAxis = 0;
 
 	// Use this for initialization
 	void Start () {
-        offset = transform.position - player.transform.position;
-    }
+		offsetDistance = (player.transform.position - transform.position).magnitude;
+		offset = player.transform.position - transform.position;
+		Debug.Log (offsetDistance);
+		Debug.Log ("offset : " + offset);
+	}
 
 	void Update(){
 		if (Input.GetKey (KeyCode.R)) {
-			transform.RotateAround (player.transform.position, Vector3.up, 50 * Time.deltaTime);
-
+			yAxis++;
 		}
+		Quaternion rotation = Quaternion.Euler(25f, yAxis, 0.0f);
+
+		transform.rotation = rotation; 
+
+		transform.position = player.transform.position + rotation * new Vector3(0.0f, 0.0f, -offsetDistance);
+	}
+	void LateUpdate(){
+		
 	}
 }
