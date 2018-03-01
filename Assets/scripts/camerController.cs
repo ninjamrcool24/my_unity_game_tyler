@@ -25,7 +25,7 @@ public class camerController : MonoBehaviour {
 		Quaternion rotation = Quaternion.Euler(25f, yAxis, 0.0f);
 
 		transform.rotation = rotation; 
-
+		player.transform.rotation = transform.rotation;
 		transform.position = player.transform.position + rotation * new Vector3(0.0f, 0.0f, -offsetDistance);
 	}
 	void LateUpdate(){

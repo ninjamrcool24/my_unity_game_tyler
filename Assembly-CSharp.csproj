@@ -51,9 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\checkpoint.cs" />
      <Compile Include="Assets\scripts\camerController.cs" />
+     <Compile Include="Assets\scripts\checkpoint.cs" />
      <Compile Include="Assets\scripts\playerController.cs" />
+     <Compile Include="Assets\scripts\UIController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
