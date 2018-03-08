@@ -38,7 +38,7 @@ public class playerController : MonoBehaviour {
 		if (transform.position.y < -10) {
 			Debug.Log (checkpoint);
 			transform.position = checkpoint;
-
+			rb.velocity = Vector3.zero;
 			//SceneManager.LoadScene("my_unity_project_tyler");
 		}
     }
