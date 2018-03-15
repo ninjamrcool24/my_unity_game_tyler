@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class checkpoint : MonoBehaviour {
 	Text text;
+	bool visited = false;
 
 	void Start(){
 		text = GameObject.Find ("Text").GetComponent<Text>();
@@ -12,13 +13,16 @@ public class checkpoint : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		playerController player = col.gameObject.GetComponent<playerController> ();
-		if (player) {
-			player.checkpoint = transform.position;
-		}
+		if(!visited){
+			playerController player = col.gameObject.GetComponent<playerController> ();
+			if (player) {
+				player.checkpoint = transform.position;
+			}
 
-		text.enabled = true;
-		StartCoroutine ("fadeText");
+			text.enabled = true;
+			visited = true;
+			StartCoroutine ("fadeText");
+		}	
 	}
 
 	IEnumerator fadeText(){
