@@ -10,6 +10,9 @@ public class playerController : MonoBehaviour {
 
     public bool isGrounded = false;
 
+
+    public Transform forwardTransform;
+
     private Rigidbody rb;
 	public Vector3 checkpoint;
 
@@ -22,10 +25,14 @@ public class playerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        float MoveHorizontal = Input.GetAxis("Horizontal");
-        float MoveVertical = Input.GetAxis("Vertical");
+        Vector3 MoveHorizontal = Input.GetAxis("Horizontal")*forwardTransform.right ;
+        Vector3 MoveVertical   = Input.GetAxis("Vertical")*forwardTransform.forward;
 
-        Vector3 movement = new Vector3 (MoveHorizontal, 0.0f, MoveVertical);
+        // Transform cameraTransform = forwardTransform.parent;
+
+        // Debug.Log("Forward Vector: " + forwardTransform.forward + " / Right Vector: " + forwardTransform.right);
+
+        Vector3 movement = (MoveHorizontal+MoveVertical).normalized;
 
         rb.AddForce(movement * speed);
 
