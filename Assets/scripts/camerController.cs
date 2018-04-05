@@ -22,6 +22,9 @@ public class camerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.R)) {
 			yAxis++;
 		}
+		if (Input.GetKey (KeyCode.E)) {
+			yAxis--;
+		}
 		Quaternion rotation = Quaternion.Euler(25f, yAxis, 0.0f);
 
 		transform.rotation = rotation; 
