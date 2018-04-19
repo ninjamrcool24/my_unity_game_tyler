@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour {
 
 
     public Transform forwardTransform;
-
+	TrailRenderer trail;
     private Rigidbody rb;
 	public Vector3 checkpoint;
 
@@ -21,6 +21,7 @@ public class playerController : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
 		checkpoint = transform.position;
 		Debug.Log (checkpoint);
+		trail = GetComponent<TrailRenderer> ();
 	}
 	
 	// Update is called once per frame
@@ -48,6 +49,9 @@ public class playerController : MonoBehaviour {
 			rb.velocity = Vector3.zero;
 			//SceneManager.LoadScene("my_unity_project_tyler");
 		}
+
+		trail.time = 1.5f * movement.magnitude;
+		Debug.Log (trail.time);
     }
 
     void OnCollisionEnter(Collision collide)
