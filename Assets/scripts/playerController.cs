@@ -50,8 +50,6 @@ public class playerController : MonoBehaviour {
 			//SceneManager.LoadScene("my_unity_project_tyler");
 		}
 
-		trail.time = 1.5f * movement.magnitude;
-		Debug.Log (trail.time);
     }
 
     void OnCollisionEnter(Collision collide)
