@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/my_unity_project_tyler.unity
-  isLoaded: 1
-  isActive: 1
