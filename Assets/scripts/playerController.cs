@@ -7,7 +7,7 @@ public class playerController : MonoBehaviour {
 
     public float speed;
     public float jumpForce;
-	public float speedBoostTime = 1.5f;
+	public float speedBoostTime = 2.0f;
 
     public bool isGrounded = false;
 
@@ -64,10 +64,10 @@ public class playerController : MonoBehaviour {
     }
 
 	public IEnumerator SpeedBoost(){
-		speed *= 2;
+		speed *= 3;
 		Debug.Log ("starting boost");
 		yield return new WaitForSeconds (speedBoostTime);
 		Debug.Log("boost over");
-		speed /= 2;
+		speed /= 3;
 	}
 }
