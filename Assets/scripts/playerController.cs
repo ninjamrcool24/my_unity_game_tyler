@@ -8,10 +8,10 @@ public class playerController : MonoBehaviour {
     public float speed;
     public float jumpForce;
 	public float speedBoostTime = 2.0f;
-	public float maxSpeed = 25;
+	public float maxSpeed = 50;
 
     public bool isGrounded = false;
-
+	public bool isBoosting = false;
 
     public Transform forwardTransform;
 	TrailRenderer trail;
@@ -28,7 +28,6 @@ public class playerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
         Vector3 MoveHorizontal = Input.GetAxis("Horizontal")*forwardTransform.right ;
         Vector3 MoveVertical   = Input.GetAxis("Vertical")*forwardTransform.forward;
 
@@ -39,7 +38,7 @@ public class playerController : MonoBehaviour {
         Vector3 movement = (MoveHorizontal+MoveVertical).normalized;
 
 		rb.AddForce (movement * speed);
-		Vector3.ClampMagnitude (rb.velocity, maxSpeed);
+		rb.velocity = Vector3.ClampMagnitude (rb.velocity, maxSpeed);
 
         if( Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -53,7 +52,7 @@ public class playerController : MonoBehaviour {
 			rb.velocity = Vector3.zero;
 			//SceneManager.LoadScene("my_unity_project_tyler");
 		}
-		Debug.Log (rb.velocity);
+		Debug.Log (rb.velocity.magnitude);
     }
 
     void OnCollisionEnter(Collision collide)
@@ -69,10 +68,13 @@ public class playerController : MonoBehaviour {
 	public IEnumerator SpeedBoost(){
 		maxSpeed *= 2;
 		speed = maxSpeed;
+		isBoosting = true;
+		rb.AddForce (transform.forward * speed);
 		Debug.Log ("starting boost");
 		yield return new WaitForSeconds (speedBoostTime);
 		maxSpeed /= 2;
-		speed = maxSpeed
+		isBoosting = false;
+		speed = maxSpeed;
 		Debug.Log("boost over");
 	}
 }
