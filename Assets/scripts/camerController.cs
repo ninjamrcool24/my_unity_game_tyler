@@ -14,8 +14,6 @@ public class camerController : MonoBehaviour {
 	void Start () {
 		offsetDistance = (player.transform.position - transform.position).magnitude;
 		offset = player.transform.position - transform.position;
-		Debug.Log (offsetDistance);
-		Debug.Log ("offset : " + offset);
 	}
 
 	void Update(){

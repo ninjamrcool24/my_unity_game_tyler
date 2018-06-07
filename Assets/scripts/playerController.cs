@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour {
-
     public float speed;
     public float jumpForce;
 	public float speedBoostTime = 2.0f;
@@ -15,7 +14,7 @@ public class playerController : MonoBehaviour {
 
     public Transform forwardTransform;
 	TrailRenderer trail;
-    private Rigidbody rb;
+    public Rigidbody rb;
 	public Vector3 checkpoint;
 
 	// Use this for initialization
@@ -24,6 +23,7 @@ public class playerController : MonoBehaviour {
 		checkpoint = transform.position;
 		Debug.Log (checkpoint);
 		trail = GetComponent<TrailRenderer> ();
+
 	}
 	
 	// Update is called once per frame
@@ -52,7 +52,7 @@ public class playerController : MonoBehaviour {
 			rb.velocity = Vector3.zero;
 			//SceneManager.LoadScene("my_unity_project_tyler");
 		}
-		Debug.Log (rb.velocity.magnitude);
+
     }
 
     void OnCollisionEnter(Collision collide)
@@ -66,15 +66,13 @@ public class playerController : MonoBehaviour {
     }
 
 	public IEnumerator SpeedBoost(){
-		maxSpeed *= 2;
+		maxSpeed *= 5;
 		speed = maxSpeed;
 		isBoosting = true;
 		rb.AddForce (transform.forward * speed);
-		Debug.Log ("starting boost");
 		yield return new WaitForSeconds (speedBoostTime);
-		maxSpeed /= 2;
+		maxSpeed /= 5;
 		isBoosting = false;
 		speed = maxSpeed;
-		Debug.Log("boost over");
 	}
 }
