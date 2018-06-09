@@ -8,6 +8,7 @@ public class playerController : MonoBehaviour {
     public float jumpForce;
 	public float speedBoostTime = 2.0f;
 	public float maxSpeed = 50;
+	public float lives = 10;
 
     public bool isGrounded = false;
 	public bool isBoosting = false;
@@ -15,7 +16,7 @@ public class playerController : MonoBehaviour {
     public Transform forwardTransform;
 	TrailRenderer trail;
     public Rigidbody rb;
-	public Vector3 checkpoint;
+	public Checkpoint checkpoint;
 
 	// Use this for initialization
 	void Start () {
@@ -46,14 +47,29 @@ public class playerController : MonoBehaviour {
             rb.AddForce(Vector3.up * jumpForce);
             isGrounded = false;
         }
-		if (transform.position.y < -10) {
-			Debug.Log (checkpoint);
-			transform.position = checkpoint;
-			rb.velocity = Vector3.zero;
-			//SceneManager.LoadScene("my_unity_project_tyler");
+
+
+		if (lives == 0) {
+			checkpoint = checkpoint.lastcheckpoint;
+
 		}
 
+		if (doDie()) {
+			die ();
+		}
     }
+
+	private bool doDie (){
+		return transform.position.y < -10 || Input.GetKeyDown ("k");
+	}
+
+	private void die(){
+		Debug.Log (checkpoint);
+		transform.position = checkpoint.transform.position;
+		rb.velocity = Vector3.zero;
+		rb.useGravity = true;
+		lives + -1;
+	}
 
     void OnCollisionEnter(Collision collide)
     {

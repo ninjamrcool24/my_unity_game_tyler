@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class checkpoint : MonoBehaviour {
+public class Checkpoint : MonoBehaviour {
 	Text text;
 	bool visited = false;
+	Checkpoint lastcheckpoint;
+	Checkpoint lastlastcheckpoint;
 
 	void Start(){
 		text = GameObject.Find ("Text").GetComponent<Text>();
@@ -16,6 +18,8 @@ public class checkpoint : MonoBehaviour {
 		if(!visited){
 			playerController player = col.gameObject.GetComponent<playerController> ();
 			if (player) {
+				lastlastcheckpoint = lastcheckpoint;
+				lastcheckpoint = player.checkpoint;
 				player.checkpoint = transform.position;
 			}
 
