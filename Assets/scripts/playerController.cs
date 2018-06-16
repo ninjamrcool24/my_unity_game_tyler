@@ -17,14 +17,16 @@ public class playerController : MonoBehaviour {
 	TrailRenderer trail;
     public Rigidbody rb;
 	public Checkpoint checkpoint;
+	public List<Vector3> checkpoints;
+	public UIController uicontroller;
 
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
-		checkpoint = transform.position;
-		Debug.Log (checkpoint);
 		trail = GetComponent<TrailRenderer> ();
-
+		checkpoints = new List<Vector3> ();
+		uicontroller = GameObject.Find ("Canvas").GetComponent<UIController> ();
+		checkpoints.Add (transform.position);
 	}
 	
 	// Update is called once per frame
@@ -48,12 +50,6 @@ public class playerController : MonoBehaviour {
             isGrounded = false;
         }
 
-
-		if (lives == 0) {
-			checkpoint = checkpoint.lastcheckpoint;
-
-		}
-
 		if (doDie()) {
 			die ();
 		}
@@ -65,10 +61,17 @@ public class playerController : MonoBehaviour {
 
 	private void die(){
 		Debug.Log (checkpoint);
-		transform.position = checkpoint.transform.position;
 		rb.velocity = Vector3.zero;
 		rb.useGravity = true;
-		lives + -1;
+		lives -= 1;
+		if (lives == 0) {
+			if (checkpoints.Count > 1) {
+				checkpoints.RemoveAt(checkpoints.Count - 1);
+			}
+			lives = 10;
+		}
+		transform.position = checkpoints [checkpoints.Count - 1];
+		uicontroller.SetLives ();
 	}
 
     void OnCollisionEnter(Collision collide)

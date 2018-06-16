@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class Checkpoint : MonoBehaviour {
 	Text text;
 	bool visited = false;
-	Checkpoint lastcheckpoint;
-	Checkpoint lastlastcheckpoint;
+
+	playerController player;
 
 	void Start(){
 		text = GameObject.Find ("Text").GetComponent<Text>();
+		player = GameObject.Find ("player").GetComponent<playerController> ();
 		text.enabled = false;
 	}
 
@@ -18,9 +19,8 @@ public class Checkpoint : MonoBehaviour {
 		if(!visited){
 			playerController player = col.gameObject.GetComponent<playerController> ();
 			if (player) {
-				lastlastcheckpoint = lastcheckpoint;
-				lastcheckpoint = player.checkpoint;
-				player.checkpoint = transform.position;
+				player.checkpoints.Add (transform.position);
+				player.lives += 1;
 			}
 
 			text.enabled = true;
