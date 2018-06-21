@@ -85,12 +85,14 @@ public class playerController : MonoBehaviour {
     }
 
 	public IEnumerator SpeedBoost(){
-		maxSpeed *= 5;
+		
+		maxSpeed = 2000;
+
 		speed = maxSpeed;
 		isBoosting = true;
 		rb.AddForce (transform.forward * speed);
 		yield return new WaitForSeconds (speedBoostTime);
-		maxSpeed /= 5;
+		maxSpeed = 25;
 		isBoosting = false;
 		speed = maxSpeed;
 	}

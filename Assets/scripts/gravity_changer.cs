@@ -13,5 +13,13 @@ public class gravity_changer : MonoBehaviour {
 			player.rb.useGravity = !player.rb.useGravity;
 			Debug.Log ("switch grav");
 //		}
+		StartCoroutine("gravityCheck");
+	}
+
+	IEnumerator gravityCheck(){
+		yield return new WaitForSeconds (10);
+		if (!player.rb.useGravity) {
+			player.rb.useGravity = true;
+		}
 	}
 }
