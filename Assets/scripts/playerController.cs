@@ -8,7 +8,7 @@ public class playerController : MonoBehaviour {
     public float jumpForce;
 	public float speedBoostTime = 2.0f;
 	public float maxSpeed = 50;
-	public float lives = 10;
+	public int lives = 10;
 
     public bool isGrounded = false;
 	public bool isBoosting = false;
@@ -41,7 +41,7 @@ public class playerController : MonoBehaviour {
         Vector3 movement = (MoveHorizontal+MoveVertical).normalized;
 
 		rb.AddForce (movement * speed);
-		rb.velocity = Vector3.ClampMagnitude (rb.velocity, maxSpeed);
+		//rb.velocity = Vector3.ClampMagnitude (rb.velocity, maxSpeed);
 
         if( Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -64,14 +64,14 @@ public class playerController : MonoBehaviour {
 		rb.velocity = Vector3.zero;
 		rb.useGravity = true;
 		lives -= 1;
-		if (lives == 0) {
+        if (lives == 0) {
 			if (checkpoints.Count > 1) {
 				checkpoints.RemoveAt(checkpoints.Count - 1);
 			}
 			lives = 10;
 		}
 		transform.position = checkpoints [checkpoints.Count - 1];
-		uicontroller.SetLives ();
+		UIController.SetLives ();
 	}
 
     void OnCollisionEnter(Collision collide)
@@ -82,18 +82,14 @@ public class playerController : MonoBehaviour {
         if(floor.position.y - transform.position.y < 0.5) {
             isGrounded = true;
         }
-    }
+    }   
 
-	public IEnumerator SpeedBoost(){
-		
-		maxSpeed = 2000;
-
-		speed = maxSpeed;
+    public IEnumerator SpeedBoost(){
+		speed = 2000;
 		isBoosting = true;
 		rb.AddForce (transform.forward * speed);
 		yield return new WaitForSeconds (speedBoostTime);
-		maxSpeed = 25;
+		speed = 25;
 		isBoosting = false;
-		speed = maxSpeed;
 	}
 }

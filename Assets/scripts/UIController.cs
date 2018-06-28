@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
+	public  Text livesText;
+	public  playerController player;
 
-	public GameObject lives;
-	public Text livesText;
-	playerController player;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("player").GetComponent<playerController> ();
@@ -19,7 +18,7 @@ public class UIController : MonoBehaviour {
 		
 	}
 
-	public void SetLives(){
-		livesText.text = "Lives: " + player.lives;
+	public static void SetLives(){
+		UIController.livesText.text = "Lives: " + UIController.player.lives;
 	}
 }

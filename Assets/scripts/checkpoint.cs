@@ -21,6 +21,7 @@ public class Checkpoint : MonoBehaviour {
 			if (player) {
 				player.checkpoints.Add (transform.position);
 				player.lives += 1;
+                UIController.SetLives();
 			}
 
 			text.enabled = true;
