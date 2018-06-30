@@ -71,7 +71,7 @@ public class playerController : MonoBehaviour {
 			lives = 10;
 		}
 		transform.position = checkpoints [checkpoints.Count - 1];
-		UIController.SetLives ();
+		uicontroller.SetLives ();
 	}
 
     void OnCollisionEnter(Collision collide)
@@ -89,7 +89,7 @@ public class playerController : MonoBehaviour {
 		isBoosting = true;
 		rb.AddForce (transform.forward * speed);
 		yield return new WaitForSeconds (speedBoostTime);
-		speed = 25;
+		speed = 100;
 		isBoosting = false;
 	}
 }
